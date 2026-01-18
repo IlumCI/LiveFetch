@@ -1,4 +1,4 @@
-from tools.DCC.main import LiveFetch, RetrievalIntent
+from DCC.main import LiveFetch, RetrievalIntent
 
 intent = RetrievalIntent(
     query="latest Ukraine war news",
@@ -9,4 +9,5 @@ intent = RetrievalIntent(
 )
 
 lf = LiveFetch()
+
 packets = lf.run_sync(intent)  # or: await lf.run(intent)
