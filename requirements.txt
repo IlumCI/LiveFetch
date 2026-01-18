@@ -1,0 +1,21 @@
+# LiveFetch - Evidence-Grounded Web Retrieval
+# Install: pip install -r requirements.txt
+
+# Discovery
+ddgs>=6.0
+feedparser>=6.0
+
+# Async HTTP
+httpx>=0.27
+
+# Content Extraction
+trafilatura>=1.8
+newspaper3k>=0.2.8
+readability-lxml>=0.8
+
+# Scoring & Similarity
+rapidfuzz>=3.6
+tldextract>=5.1
+
+# Logging (likely already in parent project)
+loguru>=0.7
