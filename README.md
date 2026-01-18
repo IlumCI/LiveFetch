@@ -40,7 +40,7 @@ pip install -r requirements.txt
 ## Usage
 
 ```python
-from tools.DCC.main import LiveFetch, RetrievalIntent
+from DCC.main import LiveFetch, RetrievalIntent
 
 intent = RetrievalIntent(
     query="EU AI Act enforcement",
@@ -125,3 +125,4 @@ Class attributes on `LiveFetch`:
 - rapidfuzz (similarity)
 - tldextract (domain parsing)
 - feedparser (RSS)
+
