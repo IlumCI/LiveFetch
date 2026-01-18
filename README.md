@@ -8,25 +8,26 @@ LiveFetch provides deterministic, timestamped web evidence for LLM pipelines. It
 
 ## Architecture
 
-```
-RetrievalIntent -> [Discovery] -> [Fetch] -> [Extract] -> [Score] -> EvidencePacket[]
-                       |             |           |            |
-                     DDG/RSS      httpx     trafilatura    composite
-                                  async     +fallbacks      ranking
+```mermaid
+flowchart LR
+    I[RetrievalIntent] --> D[Discovery]
+    D -->|URLs| F[Fetch]
+    F -->|HTML| E[Extract]
+    E -->|text + meta| S[Score]
+    S --> P[EvidencePacket]
+    S -.-> C[(SQLite)]
 ```
 
 ## Scoring Model
 
 Documents are ranked by a weighted linear combination:
 
-```
-S(d|q) = w_r * R + w_f * F + w_t * T - w_dup * D
-```
+$S(d|q) = w_r * R + w_f * F + w_t * T - w_dup * D$
 
 | Component | Weight | Description |
 |-----------|--------|-------------|
 | R (relevance) | 0.55 | Token overlap + fuzzy string similarity |
-| F (freshness) | 0.25 | Exponential decay: `2^(-age_days / 7)` |
+| F (freshness) | 0.25 | Exponential decay: $2^(-age_days / 7)$ |
 | T (trust) | 0.20 | Domain-based prior (.gov=0.9, .edu=0.85, etc.) |
 | D (redundancy) | 0.35 | Similarity penalty to already-selected docs |
 
